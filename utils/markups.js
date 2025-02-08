@@ -1,58 +1,40 @@
 const { languages } = require("./supportedLanguages");
 
 module.exports = {
-  mainMenu: {
-    reply_markup: {
-      inline_keyboard: [
-        [{ text: "➕ Add Word", callback_data: "add_word" }],
-        [{ text: "📋 My Words", callback_data: "list_words" }],
-        [{ text: "📝 Take a Quiz", callback_data: "quiz" }],
-        [{ text: "📅 Daily Word", callback_data: "daily_words" }],
-        [{ text: "📊 Progress Report", callback_data: "report" }],
-        [{ text: "❓ Help & Guide", callback_data: "help" }],
-      ],
-    },
-  },
+  mainMenu: [
+    ["➕ Add Word"],
+    ["📋 My Words"],
+    ["📝 Take a Quiz", "quiz"],
+    ["📅 Daily Word", "daily_words"],
+    ["📊 Progress Report", "report"],
+    ["❓ Help & Guide", "help"],
+  ],
 
-  mainMenuButton: {
-    reply_markup: {
-      inline_keyboard: [[{ text: "📋 Main Menu", callback_data: "main_menu" }]],
-    },
-  },
-
-  newUserMenu: {
-    reply_markup: {
-      inline_keyboard: [
-        [{ text: "✏️ Set Username", callback_data: "set_username" }],
-        [{ text: "❓ Help & Guide", callback_data: "help" }],
-      ],
-    },
-  },
+  newUserMenu: [["✏️ Set Username"], ["❓ Help & Guide"]],
 
   getLanguageSelectionMarkup: (languages) => {
-    const buttons = languages.map((lang) => [
-      { text: `🌍 ${lang}`, callback_data: `set_language_${lang}` },
-    ]);
-    buttons.push([
-      { text: "➕ Add New Language", callback_data: "add_language" },
-    ]);
+    const buttons = [];
+    for (let i = 0; i < languages.length; i += 3) {
+      buttons.push(languages.slice(i, i + 3).map((lang) => `🌍 ${lang}`));
+    }
 
-    return {
-      reply_markup: {
-        inline_keyboard: buttons,
-      },
-    };
+    buttons.push(["➕ Add New Language"]);
+
+    return buttons;
   },
 
   getLanguageAdditionMarkup: (userLanguages) => {
-    const buttons = languages
-      .filter((lang) => !userLanguages.includes(lang))
-      .map((lang) => [{ text: lang, callback_data: `add_language_${lang}` }]);
+    const availableLanguages = languages.filter(
+      (lang) => !userLanguages.includes(lang)
+    );
 
-    return {
-      reply_markup: {
-        inline_keyboard: buttons,
-      },
-    };
+    const buttons = [];
+    for (let i = 0; i < availableLanguages.length; i += 3) {
+      buttons.push(availableLanguages.slice(i, i + 3));
+    }
+
+    buttons.push(["🔙 Back"]);
+
+    return buttons;
   },
 };

@@ -1,41 +1,34 @@
-const User = require("../models/userModel"); // Import User model
+const User = require("../models/userModel");
 const catchAsync = require("../utils/errorHandler");
-const markups = require("../utils/markups");
+const {
+  newUserMenu,
+  languageSelectionMenu,
+  setUsernameReply,
+} = require("../utils/replies");
+
+const { pushUserMenu } = require("./backLogic");
+
 exports.startCommand = catchAsync(async (ctx) => {
   const telegramId = ctx.from.id.toString();
   const user = await User.findOne({ telegramId });
-
   if (user) {
-    return ctx.reply(
-      `📚 Welcome back, ${user.userName}! Ready to strengthen your language skills and master new words today? 🚀`,
-      markups.getLanguageSelectionMarkup(user.languages)
-    );
+    await languageSelectionMenu(ctx, user);
+    await pushUserMenu(telegramId, "languageSelection");
+  } else {
+    await newUserMenu(ctx);
   }
-
-  ctx.reply(
-    "👋 Welcome to FlashCardsBot! Let’s get started:",
-    markups.newUserMenu
-  );
 });
 
-exports.setUsernameAction = (ctx) => {
-  ctx.answerCbQuery(); // Close the button UI
-  ctx.reply(
-    "📝 Please set your username by sending: \n\n`/setUsername your_chosen_name`",
-    {
-      parse_mode: "Markdown",
-    }
-  );
-};
+exports.setUsernameAction = catchAsync(async (ctx) => {
+  await setUsernameReply(ctx);
+});
 
 exports.setUsernameCommand = catchAsync(async (ctx) => {
   const telegramId = ctx.from.id.toString();
-  await User.create({
-    telegramId,
-    userName: ctx.message.text.split(" ")[1],
-  });
-  ctx.reply(
-    "🎉 Username set successfully!",
-    markups.getLanguageSelectionMarkup([])
-  );
+  const newUserName = ctx.message.text.split(" ")[1];
+
+  const user = await User.create({ telegramId, userName: newUserName });
+
+  await languageSelectionMenu(ctx, user);
+  await pushUserMenu(telegramId, "languageSelection");
 });
