@@ -1,0 +1,37 @@
+{
+  "name": "flashcards-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon server.js",
+    "start:prod": "NODE_ENV=production node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "lodash": "^4.17.21",
+    "mongoose": "^8.10.0",
+    "morgan": "^1.10.0",
+    "node-cron": "^3.0.3",
+    "telegraf": "^4.16.3",
+    "validator": "^13.12.0",
+    "winston": "^3.17.0",
+    "xss-clean": "^0.1.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "nodemon": "^3.1.9",
+    "prettier": "^3.4.2"
+  }
+}
