@@ -6,7 +6,7 @@ module.exports = (fn) => (ctx) =>
     if (err.name === "ValidationError") {
       if (err.errors.userName) {
         msg =
-          "📝 Please set your username by sending: \n\n`/setUserName your_chosen_name`";
+          "📝 Please set your username by sending: \n\n`/setUsername your_chosen_name`";
       }
       error = handleValidationErrorDB(err);
     } else {

@@ -21,7 +21,7 @@ exports.startCommand = catchAsync(async (ctx) => {
 exports.setUsernameAction = (ctx) => {
   ctx.answerCbQuery(); // Close the button UI
   ctx.reply(
-    "📝 Please set your username by sending: \n\n`/setUserName your_chosen_name`",
+    "📝 Please set your username by sending: \n\n`/setUsername your_chosen_name`",
     {
       parse_mode: "Markdown",
     }
