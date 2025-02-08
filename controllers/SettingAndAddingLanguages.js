@@ -1,4 +1,4 @@
-const catchAsync = require("../utils/catchAsync");
+const catchAsync = require("../utils/errorHandler");
 const User = require("../models/userModel");
 const markups = require("../utils/markups");
 exports.addLanguageAction = catchAsync(async (ctx) => {

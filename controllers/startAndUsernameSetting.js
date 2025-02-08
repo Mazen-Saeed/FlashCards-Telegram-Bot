@@ -1,5 +1,5 @@
 const User = require("../models/userModel"); // Import User model
-const catchAsync = require("../utils/catchAsync");
+const catchAsync = require("../utils/errorHandler");
 const markups = require("../utils/markups");
 exports.startCommand = catchAsync(async (ctx) => {
   const telegramId = ctx.from.id.toString();
