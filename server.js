@@ -1,7 +1,6 @@
 require("dotenv").config({ path: "./config.env" });
 const mongoose = require("mongoose");
 const { Telegraf } = require("telegraf");
-const { Markup } = require("telegraf");
 const {
   startCommand,
   setUsernameAction,
@@ -9,9 +8,16 @@ const {
 } = require("./controllers/startAndUsernameSetting");
 const {
   addLanguageAction,
+  languageClicked,
 } = require("./controllers/SettingAndAddingLanguages");
-const { handleBackClick } = require("./controllers/backLogic");
+
+const { startAddWord } = require("./controllers/addWordsFlow");
+const { startListVocab } = require("./controllers/listVocabFlow");
+const { handleBackClick, getLastMenu } = require("./controllers/backLogic");
 const { helpAndGuide } = require("./controllers/helpAndGuideReply");
+const { languageRegex } = require("./utils/supportedLanguages");
+const textRouter = require("./textRouter");
+
 mongoose
   .connect(process.env.DATABASE_URI, {
     dbName: "flashcardsBot",
@@ -30,7 +36,11 @@ bot.hears("✏️ Set Username", setUsernameAction);
 bot.hears("➕ Add New Language", addLanguageAction);
 bot.hears("❓ Help & Guide", helpAndGuide);
 bot.hears("🔙 Back", handleBackClick);
-bot.command("setUsername", setUsernameCommand);
+bot.hears(languageRegex, languageClicked);
+bot.hears("➕ Add a New Word", startAddWord);
+bot.hears("📖 List My Vocabulary", startListVocab);
+bot.command("setusername", setUsernameCommand);
+bot.hears(/.*/, textRouter);
 
 bot.launch().then(() => {
   console.log("🤖 Bot is running in polling mode...");

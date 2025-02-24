@@ -55,3 +55,34 @@ exports.languageCode = {
   Turkish: "tr-TR",
   Welsh: "cy-GB",
 };
+
+exports.languageWithFlag = {
+  English: "🇺🇸 English",
+  Spanish: "🇪🇸 Spanish",
+  French: "🇫🇷 French",
+  German: "🇩🇪 German",
+  Arabic: "🇸🇦 Arabic",
+  Chinese: "🇨🇳 Chinese",
+  Danish: "🇩🇰 Danish",
+  Dutch: "🇳🇱 Dutch",
+  Greek: "🇬🇷 Greek",
+  Hebrew: "🇮🇱 Hebrew",
+  Hindi: "🇮🇳 Hindi",
+  Hungarian: "🇭🇺 Hungarian",
+  Icelandic: "🇮🇸 Icelandic",
+  Indonesian: "🇮🇩 Indonesian",
+  Italian: "🇮🇹 Italian",
+  Japanese: "🇯🇵 Japanese",
+  Korean: "🇰🇷 Korean",
+  Malay: "🇲🇾 Malay",
+  Norwegian: "🇳🇴 Norwegian",
+  Polish: "🇵🇱 Polish",
+  Portuguese: "🇵🇹 Portuguese",
+  Romanian: "🇷🇴 Romanian",
+  Russian: "🇷🇺 Russian",
+  Swedish: "🇸🇪 Swedish",
+  Turkish: "🇹🇷 Turkish",
+  Welsh: "🏴 Welsh",
+};
+
+exports.languageRegex = new RegExp(this.languages.join("|"));
